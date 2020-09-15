@@ -9,8 +9,6 @@ environment:
 dependencies:
   args: ^1.6.0
   dcli: ^0.25.0
-  enough_ascii_art: ^0.9.7
-  path: ^1.7.0
   yaml: ^2.2.1
 
 dev_dependencies:

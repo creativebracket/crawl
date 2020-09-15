@@ -1,8 +1,5 @@
-import 'package:crawl/crawl.dart';
+import 'package:crawl/crawl.dart' as crawl;
 
 void main(List<String> args) {
-  // var awesome = Awesome();
-  // print('awesome: ${awesome.isAwesome}');
-
-  init(args);
+  crawl.start(args);
 }

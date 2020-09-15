@@ -1,6 +1,12 @@
-// TODO: Put public facing types in this file.
+import 'package:args/command_runner.dart';
 
-/// Checks if you are awesome. Spoiler: you are.
-class Awesome {
-  bool get isAwesome => true;
+import 'commands/init.dart';
+
+/// Initialises the crawl runner and list of commands.
+void start(List<String> args) {
+  final runner = CommandRunner(
+    'crawl',
+    "manage pubspec.yaml files and it's dependencies.",
+  )..addCommand(InitCommand());
+  runner.run(args);
 }

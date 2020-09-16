@@ -16,6 +16,8 @@ class InitCommand extends Command {
     runSteps();
   }
 
+  static const fileOutput = 'pubspec.yaml';
+
   @override
   void printUsage() => print('''
 $description
@@ -81,9 +83,21 @@ Press ^C at any time to quit.
     print('\n${blue(buffer.toString())}');
 
     if (confirm('Is this OK?')) {
-      'pubspec.yaml'.write(buffer.toString());
+      var output = fileOutput;
+
+      if (!shouldOverwrite()) {
+        output = '_$fileOutput';
+      }
+
+      output.write(buffer.toString());
+
+      print(green('Successfully created $output.'));
     } else {
       print('Aborted.');
     }
   }
+
+  bool shouldOverwrite() =>
+      exists(fileOutput) &&
+      confirm(orange('Overwrite current pubspec.yaml file?'));
 }

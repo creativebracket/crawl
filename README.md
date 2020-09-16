@@ -1,4 +1,4 @@
-Crawl provides a cli for creating pubspec.yaml files.
+Crawl helps you create pubspec files and manage it's packages.
 
 ## Installation
 
@@ -17,7 +17,10 @@ A simple usage example:
 ```bash
 $ mkdir nice_project
 $ cd nice_project
-$ crawl init # launch prompt for creating pubspec.yaml file
+
+$ crawl help # launch list of commands
+$ crawl init # launch pubspec.yaml creation wizard
+$ crawl install -p <pkg> # add a package to dependencies section
 ```
 
 ## Features and bugs

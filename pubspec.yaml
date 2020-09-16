@@ -1,14 +1,15 @@
 name: crawl
 description: A cli for creating pubspec.yaml files.
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/creativebracket/crawl
+issue_tracker: https://github.com/creativebracket/crawl/issues
 
 environment:
   sdk: '>=2.8.1 <3.0.0'
 
 dependencies:
   args: ^1.6.0
-  dcli: ^0.25.0
+  dcli: ^0.27.1
 
 dev_dependencies:
   pedantic: ^1.9.0

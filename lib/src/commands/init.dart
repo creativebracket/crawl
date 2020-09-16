@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
@@ -11,17 +12,16 @@ class InitCommand extends Command {
   String get name => 'init';
 
   @override
-  void run() {
-    if (argResults.wasParsed('help')) {
-      print('''
-${blue("crawl: manage pubspec.yaml files and it's dependencies.")}
+  FutureOr<void> run() {
+    runSteps();
+  }
+
+  @override
+  void printUsage() => print('''
+$description
 
 ${argParser.usage}
-      ''');
-    } else {
-      runSteps();
-    }
-  }
+''');
 
   void runSteps() {
     print(cyan('''

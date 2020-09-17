@@ -98,6 +98,8 @@ Press ^C at any time to quit.
           output = '_$fileOutput';
           output.write(yaml);
         }
+      } else {
+        current.saveToFile('');
       }
 
       print(green('Successfully created $output.'));

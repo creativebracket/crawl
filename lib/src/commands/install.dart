@@ -14,8 +14,9 @@ class InstallCommand extends Command {
   String get name => 'install';
 
   InstallCommand() {
-    argParser.addOption('package',
-        abbr: 'p', help: 'Specify package to install');
+    argParser
+      ..addOption('package', abbr: 'p', help: 'Specify package to install')
+      ..addOption('version', abbr: 'v', help: 'Set package version to install');
   }
 
   @override
@@ -46,8 +47,21 @@ class InstallCommand extends Command {
       exit(1);
     }
 
-    final version = data['latest']['version'];
+    var version = data['latest']['version'];
     final current = PubSpec.fromFile('pubspec.yaml');
+
+    if (argResults.wasParsed('version')) {
+      final specificVersion = (data['versions'] as List)
+          .where((release) => release['version'] == argResults['version'])
+          .toList();
+
+      if (specificVersion.isNotEmpty) {
+        version = specificVersion[0]['version'];
+      } else {
+        print(orange(
+            'Package version ${argResults['version']} not found. Installing latest...'));
+      }
+    }
 
     // Add new dependency
     current.pubspec.dependencies

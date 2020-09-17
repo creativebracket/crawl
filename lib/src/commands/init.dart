@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:dcli/dcli.dart';
+import 'package:pubspec/pubspec.dart' show YamlToString; // from dcli package
 
 class InitCommand extends Command {
   @override
@@ -46,19 +47,17 @@ and exactly what they do.
 Press ^C at any time to quit.
   ''');
 
-    final buffer = StringBuffer();
+    final pubspecJson = {};
 
     // name
     final currentDirectory = Directory.current.path.split('/').last;
     final name = ask('package name:', defaultValue: currentDirectory);
-
-    buffer.writeln('name: $name');
+    pubspecJson['name'] = name;
 
     // version
     final defaultVersion = '1.0.0';
     final version = ask('version:', defaultValue: defaultVersion);
-
-    buffer.writeln('version: $version');
+    pubspecJson['version'] = version;
 
     // description, homepage, git repo
     const fields = [
@@ -70,34 +69,40 @@ Press ^C at any time to quit.
     for (var field in fields) {
       final answer = ask(field['label']);
       if (answer.isNotEmpty) {
-        buffer.writeln('${field['key']}: $answer');
+        pubspecJson[field['key']] = answer;
       }
     }
 
     // environment
-    buffer.writeln('\nenvironment:');
-    buffer.writeln("  sdk: '>=2.8.1 <3.0.0'");
+    final defaultEnv = '>=2.8.1 <3.0.0';
+    final sdk = ask('environment sdk:', defaultValue: defaultEnv);
+    pubspecJson['environment'] = {'sdk': sdk};
 
-    print('About to write to $pwd/pubspec.yaml:');
+    print('About to write to $pwd/$fileOutput:');
 
-    print('\n${blue(buffer.toString())}');
+    final yaml = YamlToString().toYamlString(pubspecJson);
+
+    print('\n${blue(yaml)}');
 
     if (confirm('Is this OK?')) {
+      final current = PubSpec.fromString(yaml);
       var output = fileOutput;
 
-      if (!shouldOverwrite()) {
-        output = '_$fileOutput';
-      }
+      if (exists(fileOutput)) {
+        final confirmOverwrite =
+            confirm(orange('Overwrite current pubspec.yaml file?'));
 
-      output.write(buffer.toString());
+        if (confirmOverwrite) {
+          current.saveToFile('');
+        } else {
+          output = '_$fileOutput';
+          output.write(yaml);
+        }
+      }
 
       print(green('Successfully created $output.'));
     } else {
       print('Aborted.');
     }
   }
-
-  bool shouldOverwrite() =>
-      exists(fileOutput) &&
-      confirm(orange('Overwrite current pubspec.yaml file?'));
 }

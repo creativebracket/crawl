@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:dcli/dcli.dart';
 import 'package:http/http.dart' as http;
-import 'package:pubspec/pubspec.dart' show HostedReference; // from dcli package
+import 'package:pubspec/pubspec.dart' show HostedReference;
 
 class InstallCommand extends Command {
   @override

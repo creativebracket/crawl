@@ -1,3 +1,7 @@
+## 0.3.1
+
+- Fix missing pubspec.yaml bug caused when running `init` command in empty directory
+
 ## 0.3.0
 
 - Refactor init command to generate compact output

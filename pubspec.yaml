@@ -1,5 +1,5 @@
 name: crawl
-version: 0.3.0
+version: 0.3.1
 homepage: https://github.com/creativebracket/crawl
 description: A cli for creating pubspec files and managing it's packages.
 issue_tracker: https://github.com/creativebracket/crawl/issues

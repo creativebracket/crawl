@@ -1,3 +1,8 @@
+## 0.4.0
+
+- Enable install particular package version
+- Enable adding dev dependencies
+
 ## 0.3.1
 
 - Fix missing pubspec.yaml bug caused when running `init` command in empty directory

@@ -1,3 +1,6 @@
+## 0.4.0+1
+- Update README
+
 ## 0.4.0
 
 - Enable install particular package version

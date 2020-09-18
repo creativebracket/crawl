@@ -47,31 +47,34 @@ class InstallCommand extends Command {
       exit(1);
     }
 
-    var version = data['latest']['version'];
+    final version = resolveVersion(data['versions']);
     final current = PubSpec.fromFile('pubspec.yaml');
-
-    if (argResults.wasParsed('version')) {
-      final specificVersion = (data['versions'] as List)
-          .where((release) => release['version'] == argResults['version'])
-          .toList();
-
-      if (specificVersion.isNotEmpty) {
-        version = specificVersion[0]['version'];
-      } else {
-        print(orange(
-            'Package version ${argResults['version']} not found. Installing latest...'));
-      }
-    }
 
     // Add new dependency
     current.pubspec.dependencies
-        .addAll({name: HostedReference.fromJson('^$version')});
+        .addAll({name: HostedReference.fromJson(version)});
 
     current.saveToFile('pubspec.yaml');
 
     // Update dependencies
     'pub get'.run;
 
-    print(green('Installed $name ^$version'));
+    print(green('Added $name $version'));
+  }
+
+  String resolveVersion(List releases) {
+    if (argResults.wasParsed('version')) {
+      final filteredRelease = releases
+          .where((release) => release['version'] == argResults['version'])
+          .toList();
+
+      if (filteredRelease.isNotEmpty) {
+        return filteredRelease[0]['version'];
+      }
+
+      print(orange(
+          'Package version ${argResults['version']} not found. Installing latest...'));
+    }
+    return '^${releases.last['version']}';
   }
 }

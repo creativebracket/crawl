@@ -16,7 +16,11 @@ class InstallCommand extends Command {
   InstallCommand() {
     argParser
       ..addOption('package', abbr: 'p', help: 'Specify package to install')
-      ..addOption('version', abbr: 'v', help: 'Set package version to install');
+      ..addOption('version', abbr: 'v', help: 'Set package version to install')
+      ..addFlag('dev',
+          abbr: 'd',
+          help: 'Add package to dev_dependencies group',
+          negatable: false);
   }
 
   @override
@@ -50,9 +54,13 @@ class InstallCommand extends Command {
     final version = resolveVersion(data['versions']);
     final current = PubSpec.fromFile('pubspec.yaml');
 
-    // Add new dependency
-    current.pubspec.dependencies
-        .addAll({name: HostedReference.fromJson(version)});
+    // Add entry to correct group
+    final entry = {name: HostedReference.fromJson(version)};
+    if (argResults.wasParsed('dev')) {
+      current.pubspec.devDependencies.addAll(entry);
+    } else {
+      current.pubspec.dependencies.addAll(entry);
+    }
 
     current.saveToFile('pubspec.yaml');
 

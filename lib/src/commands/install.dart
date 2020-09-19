@@ -62,7 +62,7 @@ class InstallCommand extends Command {
       current.pubspec.dependencies.addAll(entry);
     }
 
-    current.saveToFile('pubspec.yaml');
+    current.saveToFile('.');
 
     // Update dependencies
     'pub get'.run;

@@ -4,6 +4,7 @@ import 'commands/init.dart';
 import 'commands/install.dart';
 import 'commands/remove.dart';
 import 'commands/search.dart';
+import 'commands/unused.dart';
 
 /// Initialises the crawl runner and list of commands.
 void start(List<String> args) {
@@ -14,6 +15,7 @@ void start(List<String> args) {
     ..addCommand(InitCommand())
     ..addCommand(InstallCommand())
     ..addCommand(RemoveCommand())
-    ..addCommand(SearchCommand());
+    ..addCommand(SearchCommand())
+    ..addCommand(UnusedCommand());
   runner.run(args);
 }

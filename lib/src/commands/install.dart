@@ -51,7 +51,7 @@ class InstallCommand extends Command {
       exit(1);
     }
 
-    final version = resolveVersion(data['versions']);
+    final version = resolveVersion(data);
     final current = PubSpec.fromFile('pubspec.yaml');
 
     // Add entry to correct group
@@ -71,9 +71,9 @@ class InstallCommand extends Command {
     print(green('Added $name $version'));
   }
 
-  String resolveVersion(List releases) {
+  String resolveVersion(Map package) {
     if (argResults.wasParsed('version')) {
-      final filteredRelease = releases
+      final filteredRelease = package['versions']
           .where((release) => release['version'] == argResults['version'])
           .toList();
 
@@ -84,6 +84,6 @@ class InstallCommand extends Command {
       print(orange(
           'Package version ${argResults['version']} not found. Installing latest...'));
     }
-    return '^${releases.last['version']}';
+    return '^${package['latest']['version']}';
   }
 }

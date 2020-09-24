@@ -29,12 +29,14 @@ Global options:
 Available commands:
   init      create a pubspec.yaml file
   install   adds a new package
+  remove    removes a package
 
 Run "crawl help <command>" for more information about a command.
 
 $ crawl init # launch pubspec.yaml creation wizard
 $ crawl install -p <pkg> # add a package to dependencies section
 $ crawl install -p <pkg> -d # add a package to dev_dependencies section
+$ crawl remove <pkg> # remove a package
 ```
 
 ## Features and bugs

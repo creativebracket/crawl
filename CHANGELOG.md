@@ -1,3 +1,9 @@
+## 0.5.0
+- Implement remove command
+- Run correct update command for Flutter project
+- Fix bug to ensure correct latest package version is pulled in
+- Update dcli package
+
 ## 0.4.0+1
 - Update README
 

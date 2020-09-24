@@ -3,6 +3,7 @@ import 'package:args/command_runner.dart';
 import 'commands/init.dart';
 import 'commands/install.dart';
 import 'commands/remove.dart';
+import 'commands/search.dart';
 
 /// Initialises the crawl runner and list of commands.
 void start(List<String> args) {
@@ -12,6 +13,7 @@ void start(List<String> args) {
   )
     ..addCommand(InitCommand())
     ..addCommand(InstallCommand())
-    ..addCommand(RemoveCommand());
+    ..addCommand(RemoveCommand())
+    ..addCommand(SearchCommand());
   runner.run(args);
 }

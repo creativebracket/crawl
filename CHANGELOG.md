@@ -1,3 +1,7 @@
+## 0.6.0
+- Implement search command
+- Implement unused command
+
 ## 0.5.0
 - Implement remove command
 - Run correct update command for Flutter project

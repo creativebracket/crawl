@@ -25,7 +25,8 @@ class RemoveCommand extends Command {
     current.saveToFile('.');
 
     // Update dependencies
-    'pub get'.run;
+    final isFlutter = current.pubspec.dependencies.containsKey('flutter');
+    (isFlutter ? 'flutter pub get' : 'pub get').run;
 
     print(blue('Removed $name'));
   }
